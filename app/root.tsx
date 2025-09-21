@@ -10,12 +10,6 @@ import type { Route } from "./+types/root";
 import appStylesHref from "./app.css?url";
 import { getContacts } from './data';
 
-// Special Route Module Feature
-export async function clientLoader() {
-  const contacts = await getContacts();
-  return { contacts };
-}
-
 export default function App({ loaderData }: Route.ComponentProps) {
   const { contacts } = loaderData;
 
@@ -69,6 +63,22 @@ export default function App({ loaderData }: Route.ComponentProps) {
         <Outlet />
       </div>
     </>
+  );
+}
+
+// Special Route Module Feature: to load data
+export async function clientLoader() {
+  const contacts = await getContacts();
+  return { contacts };
+}
+
+// Special Route Module Feature: to show some elements when data is loading
+export function HydrateFallback() {
+  return (
+    <div id="loading-splash">
+      <div id="loading-splash-spinner" />
+      <p>Loading, please wait...</p>
+    </div>
   );
 }
 
