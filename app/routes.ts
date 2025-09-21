@@ -4,5 +4,6 @@ const ROUTES_DIR = "routes";
 
 export default [
   index(`${ROUTES_DIR}/home.tsx`),
-  route("contacts/:contactId", `${ROUTES_DIR}/contact.tsx`)
+  route("contacts/:contactId", `${ROUTES_DIR}/contact.tsx`),
+  route("about", `${ROUTES_DIR}/about.tsx`)
 ] satisfies RouteConfig;
