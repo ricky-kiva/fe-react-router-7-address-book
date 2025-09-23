@@ -1,6 +1,7 @@
 import { Form, Link, NavLink, Outlet, useNavigation } from "react-router";
 import type { Route } from './+types/sidebar';
 import { getContacts } from '../data';
+import { useEffect } from 'react';
 
 // Special Route Module Feature: to load data
 export async function loader({ request }: Route.LoaderArgs) {
@@ -8,12 +9,17 @@ export async function loader({ request }: Route.LoaderArgs) {
   const q = url.searchParams.get("q");
   const contacts = await getContacts(q);
 
-  return { contacts };
+  return { contacts, q };
 }
 
 export default function SidebarLayout({ loaderData }: Route.ComponentProps) {
-  const { contacts } = loaderData;
+  const { contacts, q } = loaderData;
   const navigation = useNavigation();
+
+  useEffect(() => {
+    const searchField = document.getElementById("q");
+    if (searchField instanceof HTMLInputElement) searchField.value = (q || "");
+  }, [q]);
 
   return (
     <>
@@ -29,6 +35,7 @@ export default function SidebarLayout({ loaderData }: Route.ComponentProps) {
               name="q"
               placeholder="Search"
               type="search"
+              defaultValue={q || ""}
             />
             <div aria-hidden hidden={true} id="search-spinner" />
           </Form>
