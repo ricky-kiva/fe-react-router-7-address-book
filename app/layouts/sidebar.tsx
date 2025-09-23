@@ -3,8 +3,11 @@ import type { Route } from './+types/sidebar';
 import { getContacts } from '../data';
 
 // Special Route Module Feature: to load data
-export async function loader() {
-  const contacts = await getContacts();
+export async function loader({ request }: Route.LoaderArgs) {
+  const url = new URL(request.url);
+  const q = url.searchParams.get("q");
+  const contacts = await getContacts(q);
+
   return { contacts };
 }
 
