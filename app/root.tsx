@@ -8,9 +8,16 @@ import {
 } from "react-router";
 import type { Route } from "./+types/root";
 import appStylesHref from "./app.css?url";
+import { createEmptyContact } from './data';
 
 export default function App() {
   return <Outlet />
+}
+
+// Special Route Module Feature: do server-side data mutations with automatic `loader` data revalidation
+export async function action() {
+  const contact = await createEmptyContact();
+  return { contact };
 }
 
 // Special Route Module Feature: to show some elements when data is loading
