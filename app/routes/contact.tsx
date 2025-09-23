@@ -90,20 +90,18 @@ function Favorite({
   const favorite = contact.favorite;
 
   return (
-    <Form method="post">
-      <fetcher.Form method='post'>
-        <button
-          aria-label={
-            favorite
-              ? "Remove from favorites"
-              : "Add to favorites"
-          }
-          name="favorite"
-          value={favorite ? "false" : "true"}
-        >
-          {favorite ? "★" : "☆"}
-        </button>
-      </fetcher.Form>
-    </Form>
+    <fetcher.Form method='post'>
+      <button
+        aria-label={
+          favorite
+            ? "Remove from favorites"
+            : "Add to favorites"
+        }
+        name="favorite"
+        value={favorite ? "false" : "true"}
+      >
+        {favorite ? "★" : "☆"}
+      </button>
+    </fetcher.Form>
   );
 }
